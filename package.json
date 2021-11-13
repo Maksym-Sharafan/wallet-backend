@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Maksym-Sharafan/wallet-backend#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
