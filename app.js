@@ -2,12 +2,20 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 
+const transactionsRouter = require('./routes/api/transactionsRoutes')
+const categoriesRouter = require('./routes/api/categoriesRoutes')
+const apiDocsRouter = require('./routes/api/apiDocsRoutes')
+
 const app = express()
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
 app.use(logger(formatsLogger));
 app.use(cors());
+
+app.use('/api/transactions', transactionsRouter)
+app.use('/api/categories', categoriesRouter)
+app.use('/api/api-docs', apiDocsRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
