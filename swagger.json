@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "https://wallet-accounting.herokuapp.com" }],
+  "servers": [{ "url": "https://wallet-29.herokuapp.com" }],
   "tags": [
     {
       "name": "Auth",
