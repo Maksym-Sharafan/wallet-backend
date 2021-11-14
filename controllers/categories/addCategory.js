@@ -1,4 +1,4 @@
-const categoriesHendlers = require('../../services/categories')
+const categoriesHandlers = require('../../services/categories')
 const Joi = require('joi')
 const { BadRequest } = require('http-errors')
 
@@ -14,7 +14,7 @@ const addCategory = async (req, res) => {
   if (error) {
     throw new BadRequest(` ${error.message}.`)
   }
-  res.status(201).json(await categoriesHendlers.addCategory(body, user._id));
+  res.status(201).json(await categoriesHandlers.addCategory(body, user._id));
 }
 
 module.exports = addCategory

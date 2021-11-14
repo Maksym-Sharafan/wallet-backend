@@ -1,4 +1,4 @@
-const transactionsHendlers = require('../../services/transactions')
+const transactionsHandlers = require('../../services/transactions')
 const Joi = require('joi')
 const { BadRequest } = require('http-errors')
 
@@ -17,7 +17,7 @@ const addTransaction = async (req, res) => {
   if (error) {
     throw new BadRequest(` ${error.message}.`)
   }
-  res.status(201).json(await transactionsHendlers.addTransaction(body, user._id));
+  res.status(201).json(await transactionsHandlers.addTransaction(body, user._id));
 }
 
 module.exports = addTransaction

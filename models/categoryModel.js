@@ -11,6 +11,10 @@ const categorySchema = new Schema({
     required: [true, 'Select category name'],
     default: null,
   },
+    colour: {
+    type: String,
+    default: null,
+  },
   owner: {
     type: SchemaTypes.ObjectId,
     ref: 'user',

@@ -12,10 +12,15 @@ const userSchema = Schema({
     required: [true, 'Email is required'],
     unique: true,
   },
-  subscription: {
+  name: {
     type: String,
-    enum: ['starter', 'pro', 'business'],
-    default: 'starter'
+    required: [true, 'Name is required'],
+    default: 'guest'
+  },
+  balance: {
+    type: Number,
+    min: 0,
+    default: 0
   },
   token: {
     type: String,
@@ -34,6 +39,7 @@ userSchema.methods.comparePassword = function (password) {
 const joiSchema = Joi.object({
   password: Joi.string().required(),
   email: Joi.string().required(),
+  name: Joi.string().required(),
 });
 
 const User = model('user', userSchema);
