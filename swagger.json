@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3000" }],
+  "servers": [{ "url": "https://wallet-accounting.herokuapp.com" }],
   "tags": [
     {
       "name": "Auth",
@@ -20,22 +20,26 @@
     {
       "name": "Transactions",
       "description": "Transactions endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Categories endpoints"
     }
   ],
   "paths": {
-    "/api/users/signup": {
+    "/api/auth/signup": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "$ref": "#/components/schemas/SignapRequest"
               }
             }
           }
@@ -46,7 +50,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/SignapResponce"
                 }
               }
             }
@@ -56,7 +60,63 @@
             "content": {}
           },
           "409": {
-            "description": "Provided email already exists",
+            "description": "Already registered",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "security": [],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Wrong email or password",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Invalid token",
             "content": {}
           }
         }
@@ -95,16 +155,14 @@
             "content": {}
           }
         }
-      }
-    },
-    "/api/transactions": {
+      },
       "get": {
         "tags": ["Transactions"],
         "summary": "Get the list of transactions",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -115,7 +173,35 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get the list of Categories",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoriesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
             "content": {}
           }
         }
@@ -124,6 +210,82 @@
   },
   "components": {
     "schemas": {
+      "SignapRequest": {
+        "type": "object",
+        "required": ["password", "email"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "User's password"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "guest@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 30,
+            "example": "Максим"
+          }
+        }
+      },
+      "SignapResponce": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "example": "201"
+          },
+          "message": {
+            "type": "string",
+            "example": "Register success"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["password", "email"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "User's password"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "guest@gmail.com"
+          }
+        }
+      },
+      "LoginResponce": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTEwYzMwMzdkZWExMjZlY2RmZThlYyIsImlhdCI6MTYzNjkwMDc0NX0.YZEA6IZn2m0lfPZO5aLWZ2V6ib63qmJz25o4beF66Yc"
+              }
+            }
+          }
+        }
+      },
+
       "AddTransactionRequest": {
         "type": "object",
         "required": ["type", "amount", "date", "owner"],
@@ -158,6 +320,12 @@
       "AddTransactionResponse": {
         "type": "object",
         "properties": {
+          "orderNumber": {
+            "type": "Number",
+            "description": "transaction's order number",
+            "minimum": 1,
+            "example": "1"
+          },
           "type": {
             "type": "string",
             "description": "transaction's type",
@@ -209,63 +377,111 @@
             "description": "transaction's updating date",
             "example": "2021-11-10T22:00:00.000+00:00"
           }
-        },
-        "GetTransactionsResponse": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "description": "transaction's type",
-                "enum": ["income", "cost"]
-              },
-              "category": {
-                "type": "string",
-                "description": "cost's category",
-                "example": "Образование"
-              },
-              "amount": {
-                "type": "number",
-                "minimum": 0,
-                "description": "transaction's amount",
-                "example": 29000.0
-              },
-              "date": {
-                "type": "date",
-                "description": "transaction's date",
-                "example": "2021-11-10T22:00:00.000+00:00"
-              },
-              "comment": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 30,
-                "example": "Курс GoIt"
-              },
-              "balance": {
-                "type": "number",
-                "minimum": 0
-              },
-              "owner": {
-                "type": "string",
-                "description": "owner's id",
-                "example": "617812c23a1c9a214a15f473"
-              },
-              "_id": {
-                "type": "string",
-                "description": "transaction's id",
-                "example": "618d8ba39e09530b79bf311b"
-              },
-              "createdAt": {
-                "type": "date",
-                "description": "transaction's creation date",
-                "example": "2021-11-10T22:00:00.000+00:00"
-              },
-              "updatedAt": {
-                "type": "date",
-                "description": "transaction's updating date",
-                "example": "2021-11-10T22:00:00.000+00:00"
-              }
+        }
+      },
+      "GetTransactionsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "orderNumber": {
+              "type": "Number",
+              "description": "transaction's order number",
+              "minimum": 1,
+              "example": "1"
+            },
+            "type": {
+              "type": "string",
+              "description": "transaction's type",
+              "enum": ["income", "cost"]
+            },
+            "category": {
+              "type": "string",
+              "description": "cost's category",
+              "example": "Образование"
+            },
+            "amount": {
+              "type": "number",
+              "minimum": 0,
+              "description": "transaction's amount",
+              "example": 29000.0
+            },
+            "date": {
+              "type": "date",
+              "description": "transaction's date",
+              "example": "2021-11-10T22:00:00.000+00:00"
+            },
+            "comment": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 30,
+              "example": "Курс GoIt"
+            },
+            "balance": {
+              "type": "number",
+              "minimum": 0
+            },
+            "owner": {
+              "type": "string",
+              "description": "owner's id",
+              "example": "617812c23a1c9a214a15f473"
+            },
+            "_id": {
+              "type": "string",
+              "description": "transaction's id",
+              "example": "618d8ba39e09530b79bf311b"
+            },
+            "createdAt": {
+              "type": "date",
+              "description": "transaction's creation date",
+              "example": "2021-11-10T22:00:00.000+00:00"
+            },
+            "updatedAt": {
+              "type": "date",
+              "description": "transaction's updating date",
+              "example": "2021-11-10T22:00:00.000+00:00"
+            }
+          }
+        }
+      },
+      "GetCategoriesResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "transaction type",
+              "enum": ["income", "cost"]
+            },
+            "name": {
+              "type": "string",
+              "description": "category name",
+              "example": "Образование"
+            },
+            "colour": {
+              "type": "string",
+              "example": "green"
+            },
+            "owner": {
+              "type": "string",
+              "description": "owner id",
+              "example": "617812c23a1c9a214a15f473"
+            },
+            "_id": {
+              "type": "string",
+              "description": "category id",
+              "example": "618d8ba39e09530b79bf311b"
+            },
+            "createdAt": {
+              "type": "date",
+              "description": "category creation date",
+              "example": "2021-11-10T22:00:00.000+00:00"
+            },
+            "updatedAt": {
+              "type": "date",
+              "description": "category updating date",
+              "example": "2021-11-10T22:00:00.000+00:00"
             }
           }
         }
