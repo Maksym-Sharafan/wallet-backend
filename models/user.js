@@ -14,8 +14,7 @@ const userSchema = Schema({
   },
   name: {
     type: String,
-    required: [true, 'Name is required'],
-    default: 'guest'
+    default: 'Guest'
   },
   balance: {
     type: Number,
@@ -39,7 +38,7 @@ userSchema.methods.comparePassword = function (password) {
 const joiSchema = Joi.object({
   password: Joi.string().required(),
   email: Joi.string().required(),
-  name: Joi.string().required(),
+  name: Joi.string()
 });
 
 const User = model('user', userSchema);
