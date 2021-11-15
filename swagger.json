@@ -50,7 +50,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SignapResponce"
+                  "$ref": "#/components/schemas/SignapResponse"
                 }
               }
             }
@@ -89,7 +89,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponce"
+                  "$ref": "#/components/schemas/LoginResponse"
                 }
               }
             }
@@ -159,7 +159,24 @@
       "get": {
         "tags": ["Transactions"],
         "summary": "Get the list of transactions",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Month query."
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Year query."
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -231,7 +248,7 @@
           }
         }
       },
-      "SignapResponce": {
+      "SignapResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -263,7 +280,7 @@
           }
         }
       },
-      "LoginResponce": {
+      "LoginResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -307,7 +324,7 @@
           },
           "date": {
             "type": "date",
-            "example": "2021-11-10T22:00:00.000+00:00"
+            "example": "2021-11-10"
           },
           "comment": {
             "type": "string",
@@ -442,7 +459,35 @@
               "example": "2021-11-10T22:00:00.000+00:00"
             }
           }
-        }
+        },
+        "example": [
+          {
+            "_id": "61904798c252619ec0bdf299",
+            "orderNumber": 4,
+            "type": "cost",
+            "category": "618ee1c7c1d4bca46f1074c9",
+            "amount": 4000,
+            "date": "2021-11-12T22:00:00.000Z",
+            "comment": "Бензин",
+            "balance": 38600,
+            "owner": "619041eb7dc0726ccedb6e2a",
+            "createdAt": "2021-11-13T23:17:44.318Z",
+            "updatedAt": "2021-11-13T23:17:44.318Z"
+          },
+          {
+            "_id": "619049be5e2bfcc87f74b010",
+            "orderNumber": 5,
+            "type": "cost",
+            "category": "618ee1c7c1d4bca46f1074c9",
+            "amount": 400,
+            "date": "2021-11-12T22:00:00.000Z",
+            "comment": "Масло",
+            "balance": 38200,
+            "owner": "619041eb7dc0726ccedb6e2a",
+            "createdAt": "2021-11-13T23:26:54.169Z",
+            "updatedAt": "2021-11-13T23:26:54.169Z"
+          }
+        ]
       },
       "GetCategoriesResponse": {
         "type": "array",
