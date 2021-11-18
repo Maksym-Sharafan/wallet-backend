@@ -12,7 +12,7 @@ const transactionList = async (userId, month, year, category) => {
       const transactionList = await Transaction.find({ owner: userId, date: { $gte: fromDate, $lt: toDate } })
       return transactionList;
     } else {
-      const transactionList = await Transaction.find({ owner: userId });
+      const transactionList = await Transaction.find({ owner: userId }).sort('-date');
       return transactionList;
     }
   } catch (error) {
