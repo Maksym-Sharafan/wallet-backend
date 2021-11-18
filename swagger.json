@@ -34,7 +34,7 @@
         "parameters": [],
         "security": [],
         "requestBody": {
-          "description": "Registration's object",
+          "description": "Registration object",
           "required": true,
           "content": {
             "application/json": {
@@ -73,7 +73,7 @@
         "parameters": [],
         "security": [],
         "requestBody": {
-          "description": "Login's object",
+          "description": "Login object",
           "required": true,
           "content": {
             "application/json": {
@@ -129,7 +129,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "transaction's object",
+          "description": "transaction object",
           "required": true,
           "content": {
             "application/json": {
@@ -233,11 +233,11 @@
         "properties": {
           "password": {
             "type": "string",
-            "description": "User's password"
+            "description": "User password"
           },
           "email": {
             "type": "string",
-            "description": "User's email",
+            "description": "User email",
             "example": "guest@gmail.com"
           },
           "name": {
@@ -271,11 +271,11 @@
         "properties": {
           "password": {
             "type": "string",
-            "description": "User's password"
+            "description": "User password"
           },
           "email": {
             "type": "string",
-            "description": "User's email",
+            "description": "User email",
             "example": "guest@gmail.com"
           }
         }
@@ -314,8 +314,8 @@
           },
           "category": {
             "type": "string",
-            "description": "costr's category",
-            "example": "Образование"
+            "description": "cost category Id",
+            "example": "618ee208c1d4bca46f1074ca"
           },
           "amount": {
             "type": "number",
@@ -337,31 +337,25 @@
       "AddTransactionResponse": {
         "type": "object",
         "properties": {
-          "orderNumber": {
-            "type": "Number",
-            "description": "transaction's order number",
-            "minimum": 1,
-            "example": "1"
-          },
           "type": {
             "type": "string",
-            "description": "transaction's type",
+            "description": "transaction type",
             "enum": ["income", "cost"]
           },
           "category": {
             "type": "string",
-            "description": "cost's category",
-            "example": "Образование"
+            "description": "cost category Id",
+            "example": "618ee208c1d4bca46f1074ca"
           },
           "amount": {
             "type": "number",
             "minimum": 0,
-            "description": "transaction's amount",
+            "description": "transaction amount",
             "example": 29000.0
           },
           "date": {
             "type": "date",
-            "description": "transaction's date",
+            "description": "transaction date",
             "example": "2021-11-10T22:00:00.000+00:00"
           },
           "comment": {
@@ -376,22 +370,22 @@
           },
           "owner": {
             "type": "string",
-            "description": "owner's id",
+            "description": "owner id",
             "example": "617812c23a1c9a214a15f473"
           },
           "_id": {
             "type": "string",
-            "description": "transaction's id",
+            "description": "transaction  id",
             "example": "618d8ba39e09530b79bf311b"
           },
           "createdAt": {
             "type": "date",
-            "description": "transaction's creation date",
+            "description": "transaction  creation date",
             "example": "2021-11-10T22:00:00.000+00:00"
           },
           "updatedAt": {
             "type": "date",
-            "description": "transaction's updating date",
+            "description": "transaction  updating date",
             "example": "2021-11-10T22:00:00.000+00:00"
           }
         }
@@ -401,31 +395,25 @@
         "items": {
           "type": "object",
           "properties": {
-            "orderNumber": {
-              "type": "Number",
-              "description": "transaction's order number",
-              "minimum": 1,
-              "example": "1"
-            },
             "type": {
               "type": "string",
-              "description": "transaction's type",
+              "description": "transaction  type",
               "enum": ["income", "cost"]
             },
             "category": {
               "type": "string",
-              "description": "cost's category",
-              "example": "Образование"
+              "description": "cost category Id",
+              "example": "618ee208c1d4bca46f1074ca"
             },
             "amount": {
               "type": "number",
               "minimum": 0,
-              "description": "transaction's amount",
+              "description": "transaction  amount",
               "example": 29000.0
             },
             "date": {
               "type": "date",
-              "description": "transaction's date",
+              "description": "transaction  date",
               "example": "2021-11-10T22:00:00.000+00:00"
             },
             "comment": {
@@ -440,22 +428,22 @@
             },
             "owner": {
               "type": "string",
-              "description": "owner's id",
+              "description": "owner  id",
               "example": "617812c23a1c9a214a15f473"
             },
             "_id": {
               "type": "string",
-              "description": "transaction's id",
+              "description": "transaction  id",
               "example": "618d8ba39e09530b79bf311b"
             },
             "createdAt": {
               "type": "date",
-              "description": "transaction's creation date",
+              "description": "transaction  creation date",
               "example": "2021-11-10T22:00:00.000+00:00"
             },
             "updatedAt": {
               "type": "date",
-              "description": "transaction's updating date",
+              "description": "transaction  updating date",
               "example": "2021-11-10T22:00:00.000+00:00"
             }
           }
@@ -463,7 +451,6 @@
         "example": [
           {
             "_id": "61904798c252619ec0bdf299",
-            "orderNumber": 4,
             "type": "cost",
             "category": "618ee1c7c1d4bca46f1074c9",
             "amount": 4000,
@@ -476,7 +463,6 @@
           },
           {
             "_id": "619049be5e2bfcc87f74b010",
-            "orderNumber": 5,
             "type": "cost",
             "category": "618ee1c7c1d4bca46f1074c9",
             "amount": 400,

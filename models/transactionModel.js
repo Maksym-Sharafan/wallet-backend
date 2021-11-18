@@ -1,10 +1,6 @@
 const { Schema, model, SchemaTypes } = require('mongoose')
 
 const transactionSchema = new Schema({
-    orderNumber: {
-    type: Number,
-    min: 1,
-  },
   type: {
     type: String,
     required: [true, 'Select transaction type'],
