@@ -10,14 +10,16 @@ const getCurrentUser = async (req, res, next) => {
             status: 'success',
             code: 200,
             data: {
-                token, 
-                email,
-                name,
-                balance,
+                token,
+                user: {
+                    email,
+                    name,
+                    balance
+                }
             }
         })
     } else {
-        throw new NotFound(`Contact with id ${_id} not found`)
+        throw new NotFound(`User with id ${_id} not found`)
     }
 };
 

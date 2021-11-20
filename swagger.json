@@ -366,21 +366,26 @@
                 "type": "string",
                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTEwYzMwMzdkZWExMjZlY2RmZThlYyIsImlhdCI6MTYzNjkwMDc0NX0.YZEA6IZn2m0lfPZO5aLWZ2V6ib63qmJz25o4beF66Yc"
               },
-              "email": {
-                "type": "string",
-                "description": "User email",
-                "example": "guest@gmail.com"
-              },
-              "name": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 30,
-                "example": "Максим"
-              },
-              "balance": {
-                "type": "number",
-                "minimum": 0,
-                "example": "10000"
+              "user": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User email",
+                    "example": "guest@gmail.com"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 30,
+                    "example": "Максим"
+                  },
+                  "balance": {
+                    "type": "number",
+                    "minimum": 0,
+                    "example": "10000"
+                  }
+                }
               }
             }
           }
