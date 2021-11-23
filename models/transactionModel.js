@@ -7,10 +7,8 @@ const transactionSchema = new Schema({
     enum: ['income', 'cost'],
   },
   category: {
-    // type: String,
     type: SchemaTypes.ObjectId,
     ref: 'category',
-    // required: [true, 'Select transaction type'], проверка при типе cost
     default: null
   },
   amount: {

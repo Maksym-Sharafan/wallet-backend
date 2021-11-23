@@ -2,7 +2,6 @@ const { BadRequest } = require('http-errors')
 
 const { Transaction, User } = require('../../models')
 const transactionList = require('./transactionList')
-const moment = require('moment')
 
 const addTransaction = async (body, owner) => {
   try {
